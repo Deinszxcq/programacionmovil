@@ -41,6 +41,8 @@
       border-bottom-right-radius: 50px;
       margin-bottom: 40px;
       box-shadow: 0 4px 20px rgba(79, 70, 229, 0.3);
+      position: relative;
+      overflow: hidden;
     }
 
     .container {
@@ -86,6 +88,11 @@
 
     .pill:hover { transform: translateY(-2px); background: rgba(255,255,255,0.22); }
 
+    .pill:focus-visible {
+      outline: 3px solid rgba(255,255,255,0.7);
+      outline-offset: 3px;
+    }
+
     .intro {
       background: var(--white);
       border: 1px solid rgba(0,0,0,0.06);
@@ -118,12 +125,16 @@
 
     .intro p { color: #6b7280; }
 
-    /* ✅ GRID FORZADO A UNA SOLA COLUMNA */
     .grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 22px;
       margin-top: 18px;
+    }
+
+    /* ✅ SOLO PARA ESTOS APARTADOS: fuerza 1 columna (uno debajo del otro) */
+    .stack {
+      grid-template-columns: 1fr;
     }
 
     .card {
@@ -140,8 +151,9 @@
     }
 
     .card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-8px);
       box-shadow: var(--hover-shadow);
+      border-color: rgba(79, 70, 229, 0.2);
     }
 
     .card::before {
@@ -192,17 +204,17 @@
     .tag-amber { background-color: #FEF3C7; color: #D97706; }
     .tag-blue { background-color: #DBEAFE; color: #2563EB; }
 
-    /* ✅ BLOQUES DE CÓDIGO SIN CORTES */
+    /* ✅ Código: evita que se corte y permite scroll horizontal */
     .block {
       margin-top: 12px;
       background: #0b1020;
       color: #e5e7eb;
       border-radius: 16px;
-      padding: 14px;
+      padding: 14px 14px;
       overflow-x: auto;
       overflow-y: hidden;
       border: 1px solid rgba(255,255,255,0.06);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 0.92rem;
       line-height: 1.5;
       white-space: pre;
@@ -240,18 +252,19 @@
       color: #6b7280;
     }
 
-    /* ✅ VIDEO */
+    /* ✅ Video */
     .video-wrap {
-      margin-top: 22px;
+      margin-top: 18px;
       background: var(--white);
       border-radius: 22px;
       padding: 22px;
       box-shadow: var(--card-shadow);
       border: 1px solid rgba(0,0,0,0.06);
       position: relative;
+      overflow: hidden;
     }
 
-    .video-wrap::before {
+    .video-wrap::before{
       content:'';
       position:absolute;
       top:0; left:0;
@@ -259,36 +272,52 @@
       background: linear-gradient(90deg, var(--accent), var(--primary));
     }
 
-    .video-title {
+    .video-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+
+    .video-title{
       display:flex;
       align-items:center;
       gap:10px;
       font-size:1.35rem;
       font-weight:800;
-      margin-bottom:12px;
+      color:#111827;
+    }
+
+    .video-tip{
+      font-size:0.92rem;
+      color:#6b7280;
     }
 
     .video-frame {
       width: 100%;
       aspect-ratio: 16 / 9;
+      border: 0;
       border-radius: 18px;
-      border: none;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.08);
+      overflow: hidden;
       background: #111827;
     }
 
     .video-placeholder {
-      margin-top: 12px;
       width: 100%;
       aspect-ratio: 16 / 9;
       border-radius: 18px;
-      border: 2px dashed rgba(79,70,229,.35);
-      background: rgba(224,231,255,.35);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
+      border: 2px dashed rgba(79, 70, 229, 0.35);
+      background: rgba(224, 231, 255, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 18px;
-      color:#374151;
+      text-align: center;
+      color: #374151;
+      margin-top: 14px;
     }
 
     .footer {
@@ -302,43 +331,336 @@
     @media (max-width: 768px) {
       header { padding: 40px 20px; border-radius: 0 0 30px 30px; }
       header h1 { font-size: 1.9rem; }
+      .grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
 <body>
-<header>
-  <div class="container">
-    <h1>Lección 1: Programación Orientada a Objetos</h1>
-    <p>Clases, objetos, herencia, polimorfismo y clases abstractas</p>
-  </div>
-</header>
+  <header>
+    <div class="container">
+      <h1>Lección 1: Programación Orientada a Objetos</h1>
+      <p>Clases, objetos, herencia, polimorfismo y clases abstractas — explicado claro y con ejemplos prácticos.</p>
 
-<main class="container">
+      <div class="top-actions" aria-label="Acciones de navegación">
+        <a class="pill" href="index.html">
+          <i class="ri-arrow-left-line" aria-hidden="true"></i>
+          Volver al Syllabus
+        </a>
+        <a class="pill" href="#clases">
+          <i class="ri-box-3-line" aria-hidden="true"></i>
+          Ir a Clases
+        </a>
+        <a class="pill" href="#herencia">
+          <i class="ri-git-merge-line" aria-hidden="true"></i>
+          Ir a Herencia
+        </a>
+        <a class="pill" href="#polimorfismo">
+          <i class="ri-shuffle-line" aria-hidden="true"></i>
+          Ir a Polimorfismo
+        </a>
+        <a class="pill" href="#abstractas">
+          <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+          Ir a Abstractas
+        </a>
+      </div>
+    </div>
+  </header>
 
-<!-- TODO TU CONTENIDO ORIGINAL SE MANTIENE IGUAL -->
-<!-- NO necesitas cambiar el HTML del contenido -->
+  <main class="container">
+    <section class="intro" aria-label="Introducción">
+      <h2><i class="ri-lightbulb-flash-line" aria-hidden="true"></i> ¿Qué es POO y por qué te conviene?</h2>
+      <p>
+        La <strong>Programación Orientada a Objetos (POO)</strong> es una forma de programar donde organizas tu código
+        como si fueran “cosas del mundo real”: <strong>usuarios</strong>, <strong>productos</strong>, <strong>autos</strong>,
+        <strong>cuentas</strong>, etc.
+      </p>
+      <ul class="mini-list">
+        <li><strong>Clase</strong> = el “molde” (la plantilla).</li>
+        <li><strong>Objeto</strong> = una “copia real” creada desde ese molde.</li>
+        <li>Te ayuda a hacer código más <strong>ordenado</strong>, <strong>reutilizable</strong> y <strong>fácil de mantener</strong>.</li>
+      </ul>
+      <div class="note">
+        Ejemplo rápido: La clase <strong>Auto</strong> define cómo son los autos. Un objeto es <strong>miAuto</strong> con color rojo y placa X.
+      </div>
+    </section>
 
-<!-- Video -->
-<section class="video-wrap">
-  <div class="video-title">
-    <i class="ri-video-line"></i> Video de la Lección
-  </div>
+    <h2 id="clases" class="section-title"><i class="ri-box-3-line" aria-hidden="true"></i> 1) Clases y Objetos</h2>
+    <p class="section-sub">Aprende a crear “moldes” (clases) y a fabricar “cosas reales” (objetos).</p>
 
-  <iframe class="video-frame"
-    src="https://www.youtube.com/embed/VIDEO_ID_AQUI"
-    allowfullscreen>
-  </iframe>
+    <!-- ✅ stack: uno encima del otro -->
+    <div class="grid stack">
+      <article class="card" aria-label="Concepto clases y objetos">
+        <div class="card-icon" style="color: #4F46E5;"><i class="ri-shapes-line" aria-hidden="true"></i></div>
+        <h3>¿Qué es una clase?</h3>
+        <p>
+          Una <strong>clase</strong> es una plantilla con:
+          <strong>atributos</strong> (datos) y <strong>métodos</strong> (acciones).
+        </p>
+        <div class="tags">
+          <span class="tag tag-primary">MOLDE</span>
+          <span class="tag tag-blue">ATRIBUTOS</span>
+          <span class="tag tag-blue">MÉTODOS</span>
+        </div>
+        <div class="note">
+          <strong>Atributo:</strong> nombre, edad, saldo.<br>
+          <strong>Método:</strong> saludar(), depositar(), pagar().
+        </div>
+      </article>
 
-  <div class="video-placeholder">
-    📌 Reemplaza <strong>VIDEO_ID_AQUI</strong> por el ID real del video.
-  </div>
-</section>
+      <article class="card secondary" aria-label="Ejemplo clase y objeto">
+        <div class="card-icon" style="color: #10B981;"><i class="ri-code-box-line" aria-hidden="true"></i></div>
+        <h3>Ejemplo práctico (Java)</h3>
+        <p>Clase <strong>Persona</strong> y creación de objetos:</p>
 
-<div class="footer">
-  Hecho para tu curso de Desarrollo de Aplicaciones Móviles.
-</div>
+        <pre class="block"><code>// 1) CLASE (molde)
+class Persona {
+  String nombre;
+  int edad;
 
-</main>
+  void saludar() {
+    System.out.println("Hola, soy " + nombre + " y tengo " + edad + " años");
+  }
+}
+
+// 2) OBJETOS (copias reales)
+public class Main {
+  public static void main(String[] args) {
+    Persona p1 = new Persona();
+    p1.nombre = "Ana";
+    p1.edad = 20;
+    p1.saludar();
+
+    Persona p2 = new Persona();
+    p2.nombre = "Luis";
+    p2.edad = 22;
+    p2.saludar();
+  }
+}</code></pre>
+
+        <div class="note">
+          <strong>Idea:</strong> la clase define “cómo es una Persona”; p1 y p2 son personas reales con valores diferentes.
+        </div>
+      </article>
+    </div>
+
+    <h2 id="herencia" class="section-title"><i class="ri-git-merge-line" aria-hidden="true"></i> 2) Herencia</h2>
+    <p class="section-sub">Reutiliza código: una clase “hija” hereda atributos y métodos de una clase “padre”.</p>
+
+    <!-- ✅ stack -->
+    <div class="grid stack">
+      <article class="card" aria-label="Concepto herencia">
+        <div class="card-icon" style="color: #4F46E5;"><i class="ri-node-tree" aria-hidden="true"></i></div>
+        <h3>¿Qué es herencia?</h3>
+        <p>
+          Si varias clases comparten cosas, creas una clase base y las demás heredan.
+          Evita repetir código.
+        </p>
+        <div class="tags">
+          <span class="tag tag-primary">REUTILIZAR</span>
+          <span class="tag tag-blue">PADRE → HIJO</span>
+        </div>
+        <div class="note">
+          Ejemplo: <strong>Animal</strong> (nombre, comer()) → <strong>Perro</strong> y <strong>Gato</strong>.
+        </div>
+      </article>
+
+      <article class="card secondary" aria-label="Ejemplo herencia">
+        <div class="card-icon" style="color: #10B981;"><i class="ri-code-s-slash-line" aria-hidden="true"></i></div>
+        <h3>Ejemplo práctico (Java)</h3>
+        <p>Una clase padre <strong>Animal</strong> y una hija <strong>Perro</strong>:</p>
+
+        <pre class="block"><code>// CLASE PADRE
+class Animal {
+  String nombre;
+
+  void comer() {
+    System.out.println(nombre + " está comiendo");
+  }
+}
+
+// CLASE HIJA (hereda de Animal)
+class Perro extends Animal {
+  void ladrar() {
+    System.out.println(nombre + " dice: ¡Guau!");
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Perro dog = new Perro();
+    dog.nombre = "Rocky";
+
+    dog.comer();   // heredado de Animal
+    dog.ladrar();  // propio de Perro
+  }
+}</code></pre>
+
+        <div class="note">
+          <strong>Perro</strong> no “re-escribe” comer(); lo hereda. Y además agrega ladrar().
+        </div>
+      </article>
+    </div>
+
+    <h2 id="polimorfismo" class="section-title"><i class="ri-shuffle-line" aria-hidden="true"></i> 3) Polimorfismo</h2>
+    <p class="section-sub">Misma acción, diferentes resultados según el objeto real que tengas.</p>
+
+    <!-- ✅ stack -->
+    <div class="grid stack">
+      <article class="card" aria-label="Concepto polimorfismo">
+        <div class="card-icon" style="color: #4F46E5;"><i class="ri-magic-line" aria-hidden="true"></i></div>
+        <h3>¿Qué es polimorfismo?</h3>
+        <p>
+          Significa “muchas formas”: un método puede comportarse diferente dependiendo de la clase hija.
+          Normalmente se logra con <strong>sobrescritura</strong> (override).
+        </p>
+        <div class="tags">
+          <span class="tag tag-primary">MISMO MÉTODO</span>
+          <span class="tag tag-amber">DIFERENTE SALIDA</span>
+        </div>
+        <div class="note">
+          Ejemplo: <strong>hacerSonido()</strong> existe en Animal, pero Perro lo hace “guau” y Gato “miau”.
+        </div>
+      </article>
+
+      <article class="card accent" aria-label="Ejemplo polimorfismo">
+        <div class="card-icon" style="color: #F59E0B;"><i class="ri-code-box-line" aria-hidden="true"></i></div>
+        <h3>Ejemplo práctico (Java)</h3>
+        <p>Una referencia <strong>Animal</strong> que puede ser Perro o Gato:</p>
+
+        <pre class="block"><code>class Animal {
+  void hacerSonido() {
+    System.out.println("Sonido genérico");
+  }
+}
+
+class Perro extends Animal {
+  @Override
+  void hacerSonido() {
+    System.out.println("Guau guau");
+  }
+}
+
+class Gato extends Animal {
+  @Override
+  void hacerSonido() {
+    System.out.println("Miau");
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Animal a1 = new Perro(); // referencia tipo Animal, objeto real Perro
+    Animal a2 = new Gato();  // referencia tipo Animal, objeto real Gato
+
+    a1.hacerSonido(); // imprime "Guau guau"
+    a2.hacerSonido(); // imprime "Miau"
+  }
+}</code></pre>
+
+        <div class="note">
+          Lo importante: <strong>mismo método</strong> (hacerSonido) pero el resultado depende del objeto real.
+        </div>
+      </article>
+    </div>
+
+    <h2 id="abstractas" class="section-title"><i class="ri-code-s-slash-line" aria-hidden="true"></i> 4) Clases Abstractas</h2>
+    <p class="section-sub">Sirven como base: no se pueden instanciar, y obligan a las hijas a implementar métodos.</p>
+
+    <!-- ✅ stack -->
+    <div class="grid stack">
+      <article class="card" aria-label="Concepto clases abstractas">
+        <div class="card-icon" style="color: #4F46E5;"><i class="ri-lock-2-line" aria-hidden="true"></i></div>
+        <h3>¿Qué es una clase abstracta?</h3>
+        <p>
+          Es una clase “incompleta” que se usa como plantilla avanzada.
+          No puedes crear objetos directamente de ella.
+        </p>
+        <div class="tags">
+          <span class="tag tag-primary">BASE</span>
+          <span class="tag tag-blue">NO INSTANCIAR</span>
+          <span class="tag tag-amber">OBLIGA IMPLEMENTAR</span>
+        </div>
+        <div class="note">
+          Si una clase tiene un método abstracto, las clases hijas deben implementarlo sí o sí.
+        </div>
+      </article>
+
+      <article class="card secondary" aria-label="Ejemplo clases abstractas">
+        <div class="card-icon" style="color: #10B981;"><i class="ri-code-box-line" aria-hidden="true"></i></div>
+        <h3>Ejemplo práctico (Java)</h3>
+        <p>Figura base con método obligatorio:</p>
+
+        <pre class="block"><code>abstract class Figura {
+  abstract double area();
+
+  void mostrarTipo() {
+    System.out.println("Soy una figura");
+  }
+}
+
+class Cuadrado extends Figura {
+  double lado;
+
+  Cuadrado(double lado) {
+    this.lado = lado;
+  }
+
+  @Override
+  double area() {
+    return lado * lado;
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    // Figura f = new Figura(); // ❌ ERROR: no se puede instanciar abstracta
+
+    Figura c = new Cuadrado(5);
+    c.mostrarTipo();
+    System.out.println(c.area()); // 25
+  }
+}</code></pre>
+
+        <div class="note">
+          <strong>Figura</strong> define reglas (area()) y las hijas (Cuadrado) cumplen.
+        </div>
+      </article>
+    </div>
+
+    <!-- ✅ VIDEO -->
+    <section class="video-wrap" aria-label="Video de la lección">
+      <div class="video-header">
+        <div class="video-title">
+          <i class="ri-video-line" aria-hidden="true"></i>
+          Video de la Lección
+        </div>
+        <div class="video-tip">
+          Tip: pega el ID de YouTube en el <strong>src</strong> del iframe.
+        </div>
+      </div>
+
+      <iframe
+        class="video-frame"
+        src="https://www.youtube.com/embed/VIDEO_ID_AQUI"
+        title="Video de la Lección 1"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+
+      <div class="video-placeholder" role="note">
+        <div>
+          <strong>📌 Espacio para video</strong><br>
+          Cuando tengas el link, reemplaza <code>VIDEO_ID_AQUI</code> por el ID real del video de YouTube.
+          <br><br>
+          Ejemplo: <code>https://www.youtube.com/watch?v=abc123</code> → ID: <strong>abc123</strong>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      Hecho para tu curso de <strong>Desarrollo de Aplicaciones Móviles</strong> — Lección 1.
+    </div>
+  </main>
 </body>
 </html>
