@@ -290,11 +290,6 @@
       color:#111827;
     }
 
-    .video-tip{
-      font-size:0.92rem;
-      color:#6b7280;
-    }
-
     .video-frame {
       width: 100%;
       aspect-ratio: 16 / 9;
@@ -303,21 +298,6 @@
       box-shadow: 0 10px 18px rgba(0,0,0,0.08);
       overflow: hidden;
       background: #111827;
-    }
-
-    .video-placeholder {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      border-radius: 18px;
-      border: 2px dashed rgba(79, 70, 229, 0.35);
-      background: rgba(224, 231, 255, 0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-      text-align: center;
-      color: #374151;
-      margin-top: 14px;
     }
 
     .footer {
@@ -388,7 +368,6 @@
     <h2 id="clases" class="section-title"><i class="ri-box-3-line" aria-hidden="true"></i> 1) Clases y Objetos</h2>
     <p class="section-sub">Aprende a crear “moldes” (clases) y a fabricar “cosas reales” (objetos).</p>
 
-    <!-- ✅ stack: uno encima del otro -->
     <div class="grid stack">
       <article class="card" aria-label="Concepto clases y objetos">
         <div class="card-icon" style="color: #4F46E5;"><i class="ri-shapes-line" aria-hidden="true"></i></div>
@@ -447,7 +426,6 @@ public class Main {
     <h2 id="herencia" class="section-title"><i class="ri-git-merge-line" aria-hidden="true"></i> 2) Herencia</h2>
     <p class="section-sub">Reutiliza código: una clase “hija” hereda atributos y métodos de una clase “padre”.</p>
 
-    <!-- ✅ stack -->
     <div class="grid stack">
       <article class="card" aria-label="Concepto herencia">
         <div class="card-icon" style="color: #4F46E5;"><i class="ri-node-tree" aria-hidden="true"></i></div>
@@ -505,7 +483,6 @@ public class Main {
     <h2 id="polimorfismo" class="section-title"><i class="ri-shuffle-line" aria-hidden="true"></i> 3) Polimorfismo</h2>
     <p class="section-sub">Misma acción, diferentes resultados según el objeto real que tengas.</p>
 
-    <!-- ✅ stack -->
     <div class="grid stack">
       <article class="card" aria-label="Concepto polimorfismo">
         <div class="card-icon" style="color: #4F46E5;"><i class="ri-magic-line" aria-hidden="true"></i></div>
@@ -567,7 +544,6 @@ public class Main {
     <h2 id="abstractas" class="section-title"><i class="ri-code-s-slash-line" aria-hidden="true"></i> 4) Clases Abstractas</h2>
     <p class="section-sub">Sirven como base: no se pueden instanciar, y obligan a las hijas a implementar métodos.</p>
 
-    <!-- ✅ stack -->
     <div class="grid stack">
       <article class="card" aria-label="Concepto clases abstractas">
         <div class="card-icon" style="color: #4F46E5;"><i class="ri-lock-2-line" aria-hidden="true"></i></div>
@@ -628,34 +604,21 @@ public class Main {
       </article>
     </div>
 
-    <!-- ✅ VIDEO -->
     <section class="video-wrap" aria-label="Video de la lección">
       <div class="video-header">
         <div class="video-title">
           <i class="ri-video-line" aria-hidden="true"></i>
           Video de la Lección
         </div>
-        <div class="video-tip">
-          Tip: pega el ID de YouTube en el <strong>src</strong> del iframe.
-        </div>
       </div>
 
       <iframe
         class="video-frame"
-        src="https://www.youtube.com/embed/VIDEO_ID_AQUI"
+        src="https://drive.google.com/file/d/1QfTebXVD4DFs7b9UCqWBaZRSpKLByBnz/preview"
         title="Video de la Lección 1"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allow="autoplay"
         allowfullscreen>
       </iframe>
-
-      <div class="video-placeholder" role="note">
-        <div>
-          <strong>📌 Espacio para video</strong><br>
-          Cuando tengas el link, reemplaza <code>VIDEO_ID_AQUI</code> por el ID real del video de YouTube.
-          <br><br>
-          Ejemplo: <code>https://www.youtube.com/watch?v=abc123</code> → ID: <strong>abc123</strong>
-        </div>
-      </div>
     </section>
 
     <div class="footer">
