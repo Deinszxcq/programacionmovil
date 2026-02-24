@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deber 4: CRUD con Room</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #3DDC84; /* Color Android */
+      --room: #073042;
+      --dark: #1e293b;
+      --bg: #f8fafc;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--dark); padding: 20px; line-height: 1.6; }
+
+    header {
+      background: var(--room);
+      color: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      margin-bottom: 30px;
+      border-bottom: 8px solid var(--primary);
+    }
+
+    .container { max-width: 900px; margin: 0 auto; }
+
+    .paso {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      border-left: 6px solid var(--primary);
+    }
+
+    h2 { font-size: 1.5rem; margin-bottom: 15px; color: var(--room); display: flex; align-items: center; gap: 10px; }
+    p { margin-bottom: 15px; font-size: 0.95rem; color: #475569; }
+
+    .codigo {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 20px;
+      border-radius: 12px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+
+    .keyword { color: #f472b6; }
+    .func { color: #38bdf8; }
+    .annotation { color: #fbbf24; }
+
+    .explicacion {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      padding: 15px;
+      border-radius: 12px;
+      margin: 15px 0;
+      font-size: 0.9rem;
+    }
+
+    footer { text-align: center; padding: 40px; color: #94a3b8; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Deber 4: CRUD Local con Room</h1>
+    <p>Implementación de persistencia de datos en Android usando SQLite</p>
+  </header>
+
+  <main class="container">
+
+    <section class="paso">
+      <h2>Paso 1: Definir la Tabla (Entity)</h2>
+      <p>Lo primero que hice fue crear la estructura de mi tabla. En Room, esto se hace con una clase simple donde defino qué columnas quiero (como el ID, título y descripción).</p>
+      
+      <div class="codigo">
+        <span class="annotation">@Entity</span>(tableName = <span style="color:#a3e635">"notas"</span>)<br>
+        <span class="keyword">data class</span> <span class="func">Note</span>(<br>
+        &nbsp;&nbsp;<span class="annotation">@PrimaryKey</span>(autoGenerate = <span class="keyword">true</span>) <span class="keyword">val</span> id: Int = 0,<br>
+        &nbsp;&nbsp;<span class="keyword">val</span> title: String,<br>
+        &nbsp;&nbsp;<span class="keyword">val</span> description: String<br>
+        )
+      </div>
+      <div class="explicacion">
+        <b>¿Qué aprendí?</b> Que el <code>autoGenerate = true</code> es clave para que Room cree los IDs solito, igual que hacía el <i>push()</i> de Firebase.
+      </div>
+    </section>
+
+    <section class="paso">
+      <h2>Paso 2: Crear el DAO (La interfáz)</h2>
+      <p>El DAO es donde escribí las "órdenes" que la base de datos debe obedecer. Aquí definí mis métodos para insertar, leer, actualizar y borrar.</p>
+      
+      
+
+      <div class="codigo">
+        <span class="annotation">@Dao</span><br>
+        <span class="keyword">interface</span> <span class="func">NoteDao</span> {<br><br>
+        &nbsp;&nbsp;<span class="annotation">@Insert</span> <span class="keyword">suspend fun</span> <span class="func">insertNote</span>(note: Note)<br><br>
+        &nbsp;&nbsp;<span class="annotation">@Query</span>(<span style="color:#a3e635">"SELECT * FROM notas"</span>)<br>
+        &nbsp;&nbsp;<span class="keyword">fun</span> <span class="func">getAllNotes</span>(): Flow&lt;List&lt;Note&gt;&gt;<br><br>
+        &nbsp;&nbsp;<span class="annotation">@Update</span> <span class="keyword">suspend fun</span> <span class="func">updateNote</span>(note: Note)<br><br>
+        &nbsp;&nbsp;<span class="annotation">@Delete</span> <span class="keyword">suspend fun</span> <span class="func">deleteNote</span>(note: Note)<br>
+        }
+      </div>
+    </section>
+
+    <section class="paso">
+      <h2>Paso 3: Conectar con la UI (ViewModel)</h2>
+      <p>Como vimos en mi captura de pantalla anterior, el ViewModel es el que da las órdenes. Usé <b>insertNote()</b> para conectar mi botón de la pantalla con el DAO.</p>
+
+      <div class="codigo">
+        <span class="keyword">fun</span> <span class="func">insertNote</span>() {<br>
+        &nbsp;&nbsp;viewModelScope.<span class="func">launch</span>(Dispatchers.IO) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;repository.<span class="func">insertNote</span>(miNotaObjeto)<br>
+        &nbsp;&nbsp;}<br>
+        }
+      </div>
+      <div class="explicacion">
+        <b>Dato importante:</b> Usé <code>viewModelScope.launch</code> porque las operaciones de base de datos no pueden trabar la pantalla; deben ir por "un carril rápido" aparte.
+      </div>
+    </section>
+
+    <section class="paso" style="border-left-color: #fbbf24;">
+      <h2>Paso 4: Mis operaciones CRUD completas</h2>
+      <p>Así es como funcionan mis acciones en la app:</p>
+      <ul>
+        <li><b>Create:</b> Al llamar a <code>insertNote()</code>, Room crea una fila nueva en el almacenamiento del celular.</li>
+        <li><b>Read:</b> Uso un <code>Flow</code> para que, si cambio una nota, la lista se actualice sola en la pantalla.</li>
+        <li><b>Update:</b> Al editar, Room busca la nota por su ID y sobrescribe los valores antiguos.</li>
+        <li><b>Delete:</b> Simplemente selecciono la nota y Room la elimina de la memoria interna.</li>
+      </ul>
+      
+      
+    </section>
+
+
+
+
+
+</body>
+</html>

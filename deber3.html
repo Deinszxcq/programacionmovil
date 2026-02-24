@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deber 3: CRUD Detallado - Realtime Database</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #0284c7;
+      --database: #FFA000;
+      --dark: #1e293b;
+      --bg: #f8fafc;
+      --code-bg: #1e293b;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--dark); padding: 20px; line-height: 1.6; }
+
+    header {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      border-bottom: 8px solid var(--database);
+    }
+
+    .container { max-width: 900px; margin: 0 auto; }
+
+    /* Estilo de los pasos */
+    .paso {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      border-left: 6px solid var(--database);
+    }
+
+    h2 { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+    h3 { font-size: 1.1rem; margin: 20px 0 10px; color: var(--dark); }
+    
+    p { margin-bottom: 15px; font-size: 0.95rem; color: #475569; }
+
+    /* Explicación profunda */
+    .explicacion-tecnica {
+      background: #f0f9ff;
+      border: 1px dashed #7dd3fc;
+      padding: 20px;
+      border-radius: 12px;
+      margin: 15px 0;
+      font-size: 0.9rem;
+    }
+
+    .explicacion-tecnica b { color: #0369a1; }
+
+    /* Código */
+    .codigo {
+      background: var(--code-bg);
+      color: #e2e8f0;
+      padding: 20px;
+      border-radius: 12px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+
+    .azul { color: #38bdf8; }
+    .verde { color: #4ade80; }
+    .gris { color: #64748b; }
+
+    /* Visualización del Árbol JSON */
+    .tree-view {
+      background: #2d3436;
+      color: #fab1a0;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.8rem;
+    }
+
+    footer { text-align: center; padding: 40px; color: #94a3b8; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Deber 3: CRUD en Tiempo Real</h1>
+    <p>Guía explicativa sobre el manejo de datos con Firebase Realtime Database</p>
+  </header>
+
+  <main class="container">
+
+    <section class="paso" style="border-left-color: #6366f1;">
+      <h2><i class="ri-lightbulb-line"></i> Conceptos Clave</h2>
+      <p>Antes de programar, entendí que esta base de datos no usa tablas, sino un <b>árbol de objetos JSON</b>. Todo se organiza por "Rutas".</p>
+      
+      <div class="explicacion-tecnica">
+        <b>La Referencia (ref):</b> Es como el GPS. Le dice a Firebase en qué parte del árbol queremos trabajar. Por ejemplo, <code>ref(db, 'usuarios')</code> apunta a la carpeta principal de usuarios.
+      </div>
+    </section>
+
+    <section class="paso">
+      <h2>Paso 1: Crear datos (CREATE)</h2>
+      <p>Para añadir información sin borrar lo que ya existe, usé <code>push()</code>. Esto es importante porque genera una "llave" única para cada registro.</p>
+      
+      <div class="codigo">
+        <span class="gris">// 1. Localizo la carpeta</span><br>
+        <span class="azul">const</span> listaRef = ref(db, <span class="verde">'usuarios'</span>);<br><br>
+        <span class="gris">// 2. Genero un espacio nuevo con ID único</span><br>
+        <span class="azul">const</span> nuevoUsuarioRef = push(listaRef);<br><br>
+        <span class="gris">// 3. Guardo los datos en ese espacio</span><br>
+        set(nuevoUsuarioRef, { nombre: <span class="verde">"Juan"</span>, edad: <span class="verde">22</span> });
+      </div>
+
+      <div class="explicacion-tecnica">
+        <b>¿Por qué push?</b> Si usara solo <code>set()</code> en la ruta 'usuarios', cada vez que alguien guardara algo, borraría al usuario anterior. <code>push()</code> crea un ID aleatorio como <i>-NXjK8...</i> para que todos convivan.
+      </div>
+    </section>
+
+    <section class="paso">
+      <h2>Paso 2: Leer datos (READ)</h2>
+      <p>Aquí usé <code>onValue()</code>. Lo genial de esta función es que mantiene la conexión abierta: si los datos cambian en la nube, mi app se entera al instante.</p>
+
+      <div class="codigo">
+        onValue(ref(db, <span class="verde">'usuarios'</span>), (snapshot) => {<br>
+        &nbsp;&nbsp;<span class="azul">const</span> datos = snapshot.val();<br>
+        &nbsp;&nbsp;console.log(<span class="verde">"Datos actuales:"</span>, datos);<br>
+        });
+      </div>
+
+      <div class="explicacion-tecnica">
+        <b>Snapshot:</b> Es como una "foto" de los datos en ese preciso momento. Con <code>snapshot.val()</code> convertimos esa foto en un objeto que JavaScript puede leer.
+      </div>
+    </section>
+
+    <section class="paso">
+      <h2>Paso 3: Actualizar (UPDATE)</h2>
+      <p>Para editar, aprendí que es mejor usar <code>update()</code> que <code>set()</code>. La diferencia es que <code>update</code> solo cambia los campos que le pides y mantiene el resto intacto.</p>
+
+      <div class="codigo">
+        <span class="gris">// Solo cambio la edad, el nombre se queda igual</span><br>
+        <span class="azul">const</span> rutaEdicion = ref(db, <span class="verde">'usuarios/'</span> + idUsuario);<br>
+        update(rutaEdicion, { edad: <span class="verde">25</span> });
+      </div>
+    </section>
+
+    <section class="paso">
+      <h2>Paso 4: Eliminar (DELETE)</h2>
+      <p>Eliminar es lo más sencillo, solo necesito la ruta exacta del ID que quiero borrar.</p>
+
+      <div class="codigo">
+        <span class="gris">// Borro al usuario por su ID</span><br>
+        remove(ref(db, <span class="verde">'usuarios/'</span> + idUsuario));
+      </div>
+    </section>
+
+    <section class="paso" style="border-left-color: #22c55e;">
+      <h2>Visualización del Árbol</h2>
+      <p>Así es como se ven mis datos organizados dentro de Firebase tras aplicar el CRUD:</p>
+      
+      <div class="tree-view">
+        {<br>
+        &nbsp;&nbsp;"usuarios": {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;"-NXjK8Lpq...": { "nombre": "Juan", "edad": 25 },<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;"-NYmP2Rst...": { "nombre": "Maria", "edad": 30 }<br>
+        &nbsp;&nbsp;}<br>
+        }
+      </div>
+    </section>
+
+  </main>
+
+ 
+
+</body>
+</html>
