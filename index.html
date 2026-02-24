@@ -19,12 +19,8 @@
             --hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* Estilos generales (se mantienen igual que tu original) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f8fafc;
@@ -46,54 +42,19 @@
             box-shadow: 0 4px 20px rgba(79, 70, 229, 0.3);
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
+        header h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
+        header p { font-size: 1.1rem; opacity: 0.9; font-weight: 300; }
 
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            font-weight: 300;
-        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-            margin-top: 50px;
-        }
-
-        .section-icon {
-            font-size: 1.8rem;
-            margin-right: 15px;
-            padding: 10px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
+        .section-header { display: flex; align-items: center; margin-bottom: 30px; margin-top: 50px; }
+        .section-icon { font-size: 1.8rem; margin-right: 15px; padding: 10px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
         .icon-lessons { background-color: #e0e7ff; color: var(--primary); }
         .icon-homework { background-color: #d1fae5; color: var(--secondary); }
 
-        h2 {
-            font-size: 1.8rem;
-            color: var(--dark);
-        }
+        h2 { font-size: 1.8rem; color: var(--dark); }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
 
         .card {
             background: var(--white);
@@ -106,6 +67,8 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            text-decoration: none; /* Quitamos subrayado de links */
+            color: inherit;
         }
 
         .card:hover {
@@ -114,93 +77,25 @@
             border-color: rgba(79, 70, 229, 0.2);
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 6px;
-        }
-
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; }
         .card.lesson::before { background: var(--primary); }
         .card.homework::before { background: var(--secondary); }
 
-        .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--dark);
-            opacity: 0.8;
-        }
+        .card-icon { font-size: 2.5rem; margin-bottom: 20px; opacity: 0.8; }
+        .card h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 10px; color: #111827; }
+        .card p { color: #6b7280; font-size: 0.95rem; flex-grow: 1; }
 
-        .card h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #111827;
-        }
-
-        .card p {
-            color: #6b7280;
-            font-size: 0.95rem;
-            flex-grow: 1;
-        }
-
-        .tags {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            font-size: 0.75rem;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
+        .tags { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .tag { font-size: 0.75rem; padding: 5px 12px; border-radius: 20px; font-weight: 600; letter-spacing: 0.5px; }
         .tag-participation { background-color: #FEF3C7; color: #D97706; }
         .tag-doc { background-color: #DBEAFE; color: #2563EB; }
         .tag-code { background-color: #D1FAE5; color: #059669; }
         .tag-db { background-color: #FCE7F3; color: #DB2777; }
         .tag-auth { background-color: #E0E7FF; color: #4338CA; }
 
-        .card-footer {
-            margin-top: 25px;
-            border-top: 1px solid #f3f4f6;
-            padding-top: 15px;
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        .btn {
-            text-decoration: none;
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: gap 0.2s;
-        }
-
-        .btn:hover {
-            gap: 10px;
-        }
-
-        /* ✅ Accesibilidad para cards clickeables */
-        .card-link{
-            text-decoration: none;
-            color: inherit;
-            cursor: pointer;
-        }
-
-        .card-link:focus-visible{
-            outline: 3px solid rgba(79, 70, 229, 0.6);
-            outline-offset: 4px;
-        }
+        .card-footer { margin-top: 25px; border-top: 1px solid #f3f4f6; padding-top: 15px; display: flex; justify-content: flex-end; }
+        .btn { color: var(--primary); font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 5px; transition: gap 0.2s; }
+        .card:hover .btn { gap: 10px; }
 
         @media (max-width: 768px) {
             header { padding: 40px 20px; border-radius: 0 0 30px 30px; }
@@ -220,7 +115,6 @@
 
 <div class="container">
 
-    <!-- LECCIONES -->
     <div class="section-header">
         <div class="section-icon icon-lessons">
             <i class="ri-book-open-line"></i>
@@ -229,47 +123,41 @@
     </div>
 
     <div class="grid">
-
-        <!-- ✅ LECCIÓN 1 CLICKEABLE -->
-        <a href="leccion1.html" class="card lesson card-link" aria-label="Abrir Lección 1: Actuación en Clase">
+        <a href="leccion1.html" class="card lesson">
             <div class="card-icon" style="color: #4F46E5;">
-                <i class="ri-user-voice-line" aria-hidden="true"></i>
+                <i class="ri-user-voice-line"></i>
             </div>
             <h3>Lección 1: Actuación en Clase</h3>
-            <p>Esta nota es completada por el docente. Lo único que debe realizar el estudiante es participar activamente en clase.</p>
+            <p>Participación activa durante las sesiones presenciales y virtuales.</p>
             <div class="tags">
                 <span class="tag tag-participation">PARTICIPACIÓN</span>
             </div>
         </a>
 
-        <!-- LECCIÓN 2 -->
         <div class="card lesson">
             <div class="card-icon" style="color: #4F46E5;">
                 <i class="ri-file-text-line"></i>
             </div>
-            <h3>Lección 2: Elaboración del Proyecto Integrador Teórico</h3>
+            <h3>Lección 2: Proyecto Integrador Teórico</h3>
             <p>Desarrollo de la documentación teórica del proyecto integrador.</p>
             <div class="tags">
                 <span class="tag tag-doc">DOCUMENTACIÓN</span>
             </div>
         </div>
 
-        <!-- LECCIÓN 3 -->
         <div class="card lesson">
             <div class="card-icon" style="color: #4F46E5;">
                 <i class="ri-slideshow-line"></i>
             </div>
-            <h3>Lección 3: Presentación del Proyecto Integrador</h3>
-            <p>Elabora las diapositivas que utilizarás para la presentación del proyecto integrador.</p>
+            <h3>Lección 3: Presentación del Proyecto</h3>
+            <p>Elaboración de diapositivas y material para la exposición final.</p>
             <div class="tags">
                 <span class="tag tag-doc">PRESENTACIÓN</span>
                 <span class="tag tag-participation">EXPOSICIÓN</span>
             </div>
         </div>
-
     </div>
 
-    <!-- DEBERES -->
     <div class="section-header">
         <div class="section-icon icon-homework">
             <i class="ri-code-box-line"></i>
@@ -279,7 +167,7 @@
 
     <div class="grid">
 
-        <div class="card homework">
+        <a href="deber1.html" class="card homework">
             <div class="card-icon" style="color: #10B981;">
                 <i class="ri-global-line"></i>
             </div>
@@ -290,57 +178,56 @@
                 <span class="tag tag-code">JSON</span>
             </div>
             <div class="card-footer">
-                <a href="#" class="btn">Ver Instrucciones <i class="ri-arrow-right-line"></i></a>
+                <span class="btn">Ver Instrucciones <i class="ri-arrow-right-line"></i></span>
             </div>
-        </div>
+        </a>
 
-        <div class="card homework">
+        <a href="deber2.html" class="card homework">
             <div class="card-icon" style="color: #10B981;">
                 <i class="ri-shield-keyhole-line"></i>
             </div>
-            <h3>Deber 2: Autenticación email/password y Google</h3>
-            <p>Implementa un sistema de autenticación completo.</p>
+            <h3>Deber 2: Autenticación Firebase</h3>
+            <p>Implementa un sistema de autenticación completo con Email y Google.</p>
             <div class="tags">
                 <span class="tag tag-auth">AUTH</span>
                 <span class="tag tag-code">FIREBASE</span>
             </div>
             <div class="card-footer">
-                <a href="#" class="btn">Ver Instrucciones <i class="ri-arrow-right-line"></i></a>
+                <span class="btn">Ver Instrucciones <i class="ri-arrow-right-line"></i></span>
             </div>
-        </div>
+        </a>
 
-        <div class="card homework">
+        <a href="deber3.html" class="card homework">
             <div class="card-icon" style="color: #10B981;">
                 <i class="ri-cloud-line"></i>
             </div>
-            <h3>Deber 3: CRUD utilizando Realtime Database</h3>
-            <p>Desarrolla operaciones completas CRUD con Firebase.</p>
+            <h3>Deber 3: CRUD Realtime Database</h3>
+            <p>Desarrolla operaciones completas CRUD con Firebase Realtime DB.</p>
             <div class="tags">
                 <span class="tag tag-db">REALTIME DB</span>
                 <span class="tag tag-code">CRUD</span>
             </div>
             <div class="card-footer">
-                <a href="#" class="btn">Ver Instrucciones <i class="ri-arrow-right-line"></i></a>
+                <span class="btn">Ver Instrucciones <i class="ri-arrow-right-line"></i></span>
             </div>
-        </div>
+        </a>
 
-        <div class="card homework">
+        <a href="deber4.html" class="card homework">
             <div class="card-icon" style="color: #10B981;">
                 <i class="ri-database-2-line"></i>
             </div>
             <h3>Deber 4: CRUD utilizando Room</h3>
-            <p>Implementa operaciones CRUD utilizando Room.</p>
+            <p>Implementa operaciones CRUD utilizando Room para persistencia local.</p>
             <div class="tags">
                 <span class="tag tag-db">ROOM</span>
                 <span class="tag tag-code">LOCAL</span>
             </div>
             <div class="card-footer">
-                <a href="#" class="btn">Ver Instrucciones <i class="ri-arrow-right-line"></i></a>
+                <span class="btn">Ver Instrucciones <i class="ri-arrow-right-line"></i></span>
             </div>
-        </div>
+        </a>
 
     </div>
-
 </div>
 
 </body>
