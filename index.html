@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syllabus del Curso</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --dark: #1F2937;
+            --light: #F3F4F6;
+            --white: #ffffff;
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+            --hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            background-image: radial-gradient(#e0e7ff 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--dark);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #4338ca 100%);
+            color: var(--white);
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            margin-bottom: 50px;
+            box-shadow: 0 4px 20px rgba(79, 70, 229, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            margin-top: 50px;
+        }
+
+        .section-icon {
+            font-size: 1.8rem;
+            margin-right: 15px;
+            padding: 10px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-lessons { background-color: #e0e7ff; color: var(--primary); }
+        .icon-homework { background-color: #d1fae5; color: var(--secondary); }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--hover-shadow);
+            border-color: rgba(79, 70, 229, 0.2);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+        }
+
+        .card.lesson::before { background: var(--primary); }
+        .card.homework::before { background: var(--secondary); }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #111827;
+        }
+
+        .card p {
+            color: #6b7280;
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+
+        .tags {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .tag-participation { background-color: #FEF3C7; color: #D97706; }
+        .tag-doc { background-color: #DBEAFE; color: #2563EB; }
+        .tag-code { background-color: #D1FAE5; color: #059669; }
+        .tag-db { background-color: #FCE7F3; color: #DB2777; }
+        .tag-auth { background-color: #E0E7FF; color: #4338CA; }
+
+        .card-footer {
+            margin-top: 25px;
+            border-top: 1px solid #f3f4f6;
+            padding-top: 15px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.2s;
+        }
+
+        .btn:hover {
+            gap: 10px;
+        }
+
+        /* ✅ Accesibilidad para cards clickeables */
+        .card-link{
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .card-link:focus-visible{
+            outline: 3px solid rgba(79, 70, 229, 0.6);
+            outline-offset: 4px;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 40px 20px; border-radius: 0 0 30px 30px; }
+            header h1 { font-size: 2rem; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>Desarrollo de Aplicaciones Móviles</h1>
+        <p>Guía de estudio, lecciones y actividades prácticas</p>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- LECCIONES -->
+    <div class="section-header">
+        <div class="section-icon icon-lessons">
+            <i class="ri-book-open-line"></i>
+        </div>
+        <h2>Lecciones</h2>
+    </div>
+
+    <div class="grid">
+
+        <!-- ✅ LECCIÓN 1 CLICKEABLE -->
+        <a href="leccion1.html" class="card lesson card-link" aria-label="Abrir Lección 1: Actuación en Clase">
+            <div class="card-icon" style="color: #4F46E5;">
+                <i class="ri-user-voice-line" aria-hidden="true"></i>
+            </div>
+            <h3>Lección 1: Actuación en Clase</h3>
+            <p>Esta nota es completada por el docente. Lo único que debe realizar el estudiante es participar activamente en clase.</p>
+            <div class="tags">
+                <span class="tag tag-participation">PARTICIPACIÓN</span>
+            </div>
+        </a>
+
+        <!-- LECCIÓN 2 -->
+        <div class="card lesson">
+            <div class="card-icon" style="color: #4F46E5;">
+                <i class="ri-file-text-line"></i>
+            </div>
+            <h3>Lección 2: Elaboración del Proyecto Integrador Teórico</h3>
+            <p>Desarrollo de la documentación teórica del proyecto integrador.</p>
+            <div class="tags">
+                <span class="tag tag-doc">DOCUMENTACIÓN</span>
+            </div>
+        </div>
+
+        <!-- LECCIÓN 3 -->
+        <div class="card lesson">
+            <div class="card-icon" style="color: #4F46E5;">
+                <i class="ri-slideshow-line"></i>
+            </div>
+            <h3>Lección 3: Presentación del Proyecto Integrador</h3>
+            <p>Elabora las diapositivas que utilizarás para la presentación del proyecto integrador.</p>
+            <div class="tags">
+                <span class="tag tag-doc">PRESENTACIÓN</span>
+                <span class="tag tag-participation">EXPOSICIÓN</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- DEBERES -->
+    <div class="section-header">
+        <div class="section-icon icon-homework">
+            <i class="ri-code-box-line"></i>
+        </div>
+        <h2>Deberes</h2>
+    </div>
+
+    <div class="grid">
+
+        <div class="card homework">
+            <div class="card-icon" style="color: #10B981;">
+                <i class="ri-global-line"></i>
+            </div>
+            <h3>Deber 1: Consumo de una API</h3>
+            <p>Ingresa al siguiente enlace y consume la API de <strong>users</strong>.</p>
+            <div class="tags">
+                <span class="tag tag-code">API</span>
+                <span class="tag tag-code">JSON</span>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="btn">Ver Instrucciones <i class="ri-arrow-right-line"></i></a>
+            </div>
+        </div>
+
+        <div class="card homework">
+            <div class="card-icon" style="color: #10B981;">
+                <i class="ri-shield-keyhole-line"></i>
+            </div>
+            <h3>Deber 2: Autenticación email/password y Google</h3>
+            <p>Implementa un sistema de autenticación completo.</p>
+            <div class="tags">
+                <span class="tag tag-auth">AUTH</span>
+                <span class="tag tag-code">FIREBASE</span>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="btn">Ver Instrucciones <i class="ri-arrow-right-line"></i></a>
+            </div>
+        </div>
+
+        <div class="card homework">
+            <div class="card-icon" style="color: #10B981;">
+                <i class="ri-cloud-line"></i>
+            </div>
+            <h3>Deber 3: CRUD utilizando Realtime Database</h3>
+            <p>Desarrolla operaciones completas CRUD con Firebase.</p>
+            <div class="tags">
+                <span class="tag tag-db">REALTIME DB</span>
+                <span class="tag tag-code">CRUD</span>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="btn">Ver Instrucciones <i class="ri-arrow-right-line"></i></a>
+            </div>
+        </div>
+
+        <div class="card homework">
+            <div class="card-icon" style="color: #10B981;">
+                <i class="ri-database-2-line"></i>
+            </div>
+            <h3>Deber 4: CRUD utilizando Room</h3>
+            <p>Implementa operaciones CRUD utilizando Room.</p>
+            <div class="tags">
+                <span class="tag tag-db">ROOM</span>
+                <span class="tag tag-code">LOCAL</span>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="btn">Ver Instrucciones <i class="ri-arrow-right-line"></i></a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
