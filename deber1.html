@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deber 1: Guía de Usuarios (API)</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #4F46E5;
+      --secondary: #0EA5E9;
+      --accent: #F59E0B;
+      --success: #10B981;
+      --dark: #0F172A;
+      --light: #F8FAFC;
+      --white: #ffffff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: #f1f5f9; color: var(--dark); line-height: 1.6; }
+
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, #312e81 100%);
+      color: var(--white);
+      padding: 60px 20px;
+      text-align: center;
+      border-bottom: 5px solid var(--secondary);
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+    /* Secciones Explicativas */
+    .step-section {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 30px 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      border-left: 8px solid var(--primary);
+    }
+
+    .step-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+    .step-icon { 
+      background: var(--primary); color: white; 
+      width: 45px; height: 45px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+    }
+
+    /* Tabla de Datos Completa */
+    .table-container {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+
+    .table-wrapper { overflow-x: auto; }
+
+    table { width: 100%; border-collapse: collapse; min-width: 900px; }
+    
+    th {
+      background: #f8fafc;
+      padding: 18px;
+      text-align: left;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: #64748b;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    td { padding: 18px; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; }
+    tr:hover { background: #f8fafc; }
+
+    .user-info b { color: var(--primary); font-size: 1rem; display: block; }
+    .user-info span { color: #64748b; font-size: 0.8rem; }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .tag-geo { background: #fef3c7; color: #92400e; font-family: monospace; }
+    .tag-biz { background: #dcfce7; color: #166534; }
+
+    footer { text-align: center; padding: 40px; color: #94a3b8; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1>Deber 1: Mi Primera Lista de Usuarios</h1>
+      <p>Aprendiendo a traer información de internet y mostrarla en pantalla.</p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="step-section">
+      <div class="step-header">
+        <div class="step-icon"><i class="ri-question-answer-line"></i></div>
+        <h2>1. ¿Qué estamos viendo aquí?</h2>
+      </div>
+      <p>
+        Imagina que pides una <strong>lista de contactos</strong> a un servidor en internet. El servidor te entrega un archivo con mucha información mezclada (nombres, coordenadas, correos). 
+        <br><br>
+        Nuestro trabajo es <strong>ordenar ese desorden</strong>. Abajo verás cómo hemos tomado cada dato (como el nombre de la empresa o la ciudad) y lo hemos puesto en su propia cajita para que sea fácil de leer.
+      </p>
+    </section>
+
+    <section class="step-section" style="border-left-color: var(--secondary);">
+      <div class="step-header">
+        <div class="step-icon" style="background:var(--secondary)"><i class="ri-database-2-line"></i></div>
+        <h2>2. La Base de Datos Completa</h2>
+      </div>
+      <p>Aquí tienes los 10 usuarios que nos entregó la API, organizados paso a paso:</p>
+
+      <div class="table-container">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre y Usuario</th>
+                <th>¿Dónde vive? (Dirección)</th>
+                <th>Contacto y Web</th>
+                <th>Empresa</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>1</b></td>
+                <td class="user-info"><b>Leanne Graham</b><span>@Bret</span><br>Sincere@april.biz</td>
+                <td>Kulas Light, Apt. 556, Gwenborough<br><span class="tag tag-geo">📍 Lat: -37.3159 / Lng: 81.1496</span></td>
+                <td>1-770-736-8031<br><small>hildegard.org</small></td>
+                <td><span class="tag tag-biz">Romaguera-Crona</span></td>
+              </tr>
+              <tr>
+                <td><b>2</b></td>
+                <td class="user-info"><b>Ervin Howell</b><span>@Antonette</span><br>Shanna@melissa.tv</td>
+                <td>Victor Plains, Suite 879, Wisokyburgh<br><span class="tag tag-geo">📍 Lat: -43.9509 / Lng: -34.4618</span></td>
+                <td>010-692-6593<br><small>anastasia.net</small></td>
+                <td><span class="tag tag-biz">Deckow-Crist</span></td>
+              </tr>
+              <tr>
+                <td><b>3</b></td>
+                <td class="user-info"><b>Clementine Bauch</b><span>@Samantha</span><br>Nathan@yesenia.net</td>
+                <td>Douglas Extension, Suite 847, McKenziehaven<br><span class="tag tag-geo">📍 Lat: -68.6102 / Lng: -47.0653</span></td>
+                <td>1-463-123-4447<br><small>ramiro.info</small></td>
+                <td><span class="tag tag-biz">Romaguera-Jacobson</span></td>
+              </tr>
+              <tr>
+                <td><b>4</b></td>
+                <td class="user-info"><b>Patricia Lebsack</b><span>@Karianne</span><br>Julianne.OConner@kory.org</td>
+                <td>Hoeger Mall, Apt. 692, South Elvis<br><span class="tag tag-geo">📍 Lat: 29.4572 / Lng: -164.2990</span></td>
+                <td>493-170-9623<br><small>kale.biz</small></td>
+                <td><span class="tag tag-biz">Robel-Corkery</span></td>
+              </tr>
+              <tr>
+                <td><b>5</b></td>
+                <td class="user-info"><b>Chelsey Dietrich</b><span>@Kamren</span><br>Lucio_Hettinger@annie.ca</td>
+                <td>Skiles Walks, Suite 351, Roscoeview<br><span class="tag tag-geo">📍 Lat: -31.8129 / Lng: 62.5342</span></td>
+                <td>(254)954-1289<br><small>demarco.info</small></td>
+                <td><span class="tag tag-biz">Keebler LLC</span></td>
+              </tr>
+              <tr>
+                <td><b>6</b></td>
+                <td class="user-info"><b>Mrs. Dennis Schulist</b><span>@Leopoldo_Corkery</span><br>Karley_Dach@jasper.info</td>
+                <td>Norberto Crossing, Apt. 950, South Christy<br><span class="tag tag-geo">📍 Lat: -71.4197 / Lng: 71.7478</span></td>
+                <td>1-477-935-8478<br><small>ola.org</small></td>
+                <td><span class="tag tag-biz">Considine-Lockman</span></td>
+              </tr>
+              <tr>
+                <td><b>7</b></td>
+                <td class="user-info"><b>Kurtis Weissnat</b><span>@Elwyn.Skiles</span><br>Telly.Hoeger@billy.biz</td>
+                <td>Rex Trail, Suite 280, Howemouth<br><span class="tag tag-geo">📍 Lat: 24.8918 / Lng: 21.8984</span></td>
+                <td>210.067.6132<br><small>elvis.io</small></td>
+                <td><span class="tag tag-biz">Johns Group</span></td>
+              </tr>
+              <tr>
+                <td><b>8</b></td>
+                <td class="user-info"><b>Nicholas Runolfsdottir V</b><span>@Maxime_Nienow</span><br>Sherwood@rosamond.me</td>
+                <td>Ellsworth Summit, Suite 729, Aliyaview<br><span class="tag tag-geo">📍 Lat: -14.3990 / Lng: -120.7677</span></td>
+                <td>586.493.6943<br><small>jacynthe.com</small></td>
+                <td><span class="tag tag-biz">Abernathy Group</span></td>
+              </tr>
+              <tr>
+                <td><b>9</b></td>
+                <td class="user-info"><b>Glenna Reichert</b><span>@Delphine</span><br>Chaim_McDermott@dana.io</td>
+                <td>Dayna Park, Suite 449, Bartholomebury<br><span class="tag tag-geo">📍 Lat: 24.6463 / Lng: -168.8889</span></td>
+                <td>(775)976-6794<br><small>conrad.com</small></td>
+                <td><span class="tag tag-biz">Yost and Sons</span></td>
+              </tr>
+              <tr>
+                <td><b>10</b></td>
+                <td class="user-info"><b>Clementina DuBuque</b><span>@Moriah.Stanton</span><br>Rey.Padberg@karina.biz</td>
+                <td>Kattie Turnpike, Suite 198, Lebsackbury<br><span class="tag tag-geo">📍 Lat: -38.2386 / Lng: 57.2232</span></td>
+                <td>024-648-3804<br><small>ambrose.net</small></td>
+                <td><span class="tag tag-biz">Hoeger LLC</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="step-section" style="border-left-color: var(--success);">
+      <div class="step-header">
+        <div class="step-icon" style="background:var(--success)"><i class="ri-checkbox-circle-line"></i></div>
+        <h2>3. ¿Qué aprendimos?</h2>
+      </div>
+      <p>Cómo tomar una lista de usuarios de una API y presentarla de forma elegante. Tenemos la base para crear cualquier aplicación de contactos</p>
+    </section>
+
+    <footer>
+      <p>Desarrollo de Aplicaciones Móviles 2026</p>
+    </footer>
+  </main>
+
+</body>
+</html>

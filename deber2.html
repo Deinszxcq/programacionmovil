@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deber 2: Autenticación</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #4F46E5;
+      --firebase: #FFCA28;
+      --google: #EA4335;
+      --dark: #1e293b;
+      --bg: #f1f5f9;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--dark); padding: 20px; }
+
+    header {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    }
+
+    .container { max-width: 850px; margin: 0 auto; }
+
+    .paso {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      border-left: 5px solid var(--primary);
+    }
+
+    h2 { font-size: 1.4rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+    p { margin-bottom: 15px; font-size: 0.95rem; color: #475569; }
+
+    /* Bloque de código sencillo */
+    .codigo {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 20px;
+      border-radius: 10px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+
+    .comentario { color: #64748b; }
+    .azul { color: #38bdf8; }
+    .verde { color: #4ade80; }
+
+    .nota {
+      background: #fef3c7;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      border: 1px solid #fde68a;
+    }
+
+    footer { text-align: center; margin-top: 40px; color: #94a3b8; font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Deber 2</h1>
+    <p><b>Tema:</b> Autenticación con Email/Password y Google</p>
+  </header>
+
+  <main class="container">
+
+    <section class="paso">
+      <h2>Paso 1: Configurar el proyecto</h2>
+      <p>Lo primero que hice fue entrar a la consola de Firebase y crear mi proyecto. Ahí mismo activé los "Sign-in methods" para poder usar el correo y la cuenta de Google.</p>
+      
+      
+      
+      <p>Después, instalé la librería en mi proyecto con este comando:</p>
+      <div class="codigo">npm install firebase</div>
+    </section>
+
+    <section class="paso">
+      <h2>Paso 2: Conectar Firebase</h2>
+      <p>Creé un archivo para guardar mis credenciales y conectar mi aplicación con el servicio de Firebase.</p>
+      <div class="codigo">
+        <span class="comentario">// Importo lo que necesito</span><br>
+        <span class="azul">import</span> { initializeApp } <span class="azul">from</span> "firebase/app";<br>
+        <span class="azul">import</span> { getAuth } <span class="azul">from</span> "firebase/auth";<br><br>
+        <span class="comentario">// Configuración con mis llaves</span><br>
+        <span class="azul">const</span> firebaseConfig = {<br>
+        &nbsp;&nbsp;apiKey: <span class="verde">"MI_API_KEY"</span>,<br>
+        &nbsp;&nbsp;authDomain: <span class="verde">"mi-app.firebaseapp.com"</span>,<br>
+        &nbsp;&nbsp;projectId: <span class="verde">"mi-app-id"</span><br>
+        };<br><br>
+        <span class="azul">const</span> app = initializeApp(firebaseConfig);<br>
+        <span class="azul">export const</span> auth = getAuth(app);
+      </div>
+    </section>
+
+    <section class="paso">
+      <h2>Paso 3: Login con correo y clave</h2>
+      <p>Programé una función para que el usuario pueda entrar usando su email y contraseña. Usé un <code>try/catch</code> para que si hay un error (como una clave mal puesta), me avise.</p>
+      <div class="codigo">
+        <span class="azul">import</span> { signInWithEmailAndPassword } <span class="azul">from</span> "firebase/auth";<br><br>
+        <span class="azul">const</span> ingresarConEmail = <span class="azul">async</span> (email, password) => {<br>
+        &nbsp;&nbsp;<span class="azul">try</span> {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="azul">await</span> signInWithEmailAndPassword(auth, email, password);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;console.log(<span class="verde">"¡Usuario logueado!"</span>);<br>
+        &nbsp;&nbsp;} <span class="azul">catch</span> (error) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;alert(<span class="verde">"Error: "</span> + error.message);<br>
+        &nbsp;&nbsp;}<br>
+        };
+      </div>
+    </section>
+
+    <section class="paso">
+      <h2>Paso 4: Login con Google</h2>
+      <p>Para Google es más fácil porque solo uso un "Provider" y Firebase abre una ventanita para elegir la cuenta.</p>
+      <div class="codigo">
+        <span class="azul">import</span> { GoogleAuthProvider, signInWithPopup } <span class="azul">from</span> "firebase/auth";<br><br>
+        <span class="azul">const</span> loginGoogle = () => {<br>
+        &nbsp;&nbsp;<span class="azul">const</span> provider = <span class="azul">new</span> GoogleAuthProvider();<br>
+        &nbsp;&nbsp;signInWithPopup(auth, provider)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;.then((result) => {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log(<span class="verde">"Hola "</span> + result.user.displayName);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;});<br>
+        };
+      </div>
+      
+    </section>
+
+    <section class="paso">
+      <h2>Paso 5: Revisar si el usuario está activo</h2>
+      <p>Puse un "escuchador" para que mi app sepa si hay alguien logueado. Si no hay nadie, puedo redirigirlo al login automáticamente.</p>
+      <div class="codigo">
+        auth.onAuthStateChanged((user) => {<br>
+        &nbsp;&nbsp;<span class="azul">if</span> (user) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;console.log(<span class="verde">"El usuario sigue aquí"</span>);<br>
+        &nbsp;&nbsp;} <span class="azul">else</span> {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;console.log(<span class="verde">"Sesión cerrada"</span>);<br>
+        &nbsp;&nbsp;}<br>
+        });
+      </div>
+    </section>
+
+    <section class="paso">
+      <h2>Paso 6: Cerrar sesión</h2>
+      <p>Por último, hice la función para salir. Es sencillo, solo llamo a <code>signOut</code> y Firebase limpia todo.</p>
+      <div class="codigo">
+        <span class="azul">import</span> { signOut } <span class="azul">from</span> "firebase/auth";<br><br>
+        <span class="azul">const</span> salir = () => {<br>
+        &nbsp;&nbsp;signOut(auth).then(() => {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;console.log(<span class="verde">"Sesión finalizada"</span>);<br>
+        &nbsp;&nbsp;});<br>
+        };
+      </div>
+    </section>
+
+ 
+
+  </main>
+
+  <footer>
+    <p>Desarrollo de Aplicaciones Móviles - 2026</p>
+  </footer>
+
+</body>
+</html>
